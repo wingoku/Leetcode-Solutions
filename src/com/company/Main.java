@@ -1,6 +1,6 @@
 package com.company;
 
-import com.company.competitiveProgramming.RobotReturnToOrigin;
+import com.company.competitiveProgramming.*;
 
 import java.util.HashMap;
 
@@ -70,7 +70,7 @@ public class Main {
 
 //        new ArrayQuadruplet().findArrayQuadruplets(new int[] {2, 7, 4, 0, 9, 5, 1, 3}, 20);
 //        new SingleNumber().returnNonDuplicateNumberInArray(new int[]{1, 2, 3, 1,3});
-//        new MissingNumber().findMissingNumber(new int[] {9,6,4,2,3,5,7,0,1});
+//        new MissingNumber().findMissingNumberWithGaussionSum(new int[] {9,6,4,2,3,5,7,8,1});
 //        new ReverseInteger().reverseInteger(319);
 //        new FindPrimeNumbersUnderN().findPrimeNumbers(60);
 //        new FirstNonRepeatingCharacter().firstUniqueCharacter("loveleetcode");
@@ -90,7 +90,34 @@ public class Main {
 //        new Subset().subsets(new int[]{0});
 //        new PowerOfTwo().isPowerOfTwo(536870912);
 
-        new RobotReturnToOrigin().isRobotReturningToOriginalPosition("LDRRLRUULR");
+//        new RobotReturnToOrigin().isRobotReturningToOriginalPosition("LDRRLRUULR");
+//        new BestTimeToBuyAndSellStocks2().maxProfile(new int[] {7,1,5,3,6,4});
+//        new PathSum2().pathSum(null, 22);
+//        new ValidateBinarySearchTree().isValidBST(null);
+//        new MoveZerosToEndOfArray().moveZeroes(new int[] {1,0,1});
+//        new SymmetricTree().isSymmetric(null);
+
+        new BinaryTreeLevelOrderTraversal().levelOrder(null);
+//        new Main().iterateWith2Power();
+    }
+
+    private void iterateWith2Power() {
+        int i=1;
+        int powerof2=1;
+        int startPointer = 0;
+
+        int endPointer = 0;
+        while(endPointer < 16) {
+            System.out.println("startPointer: "+ startPointer + " endPointer: "+ endPointer);
+            if(startPointer != endPointer)
+                for(int j=endPointer; j<Math.pow(2, i); j++)
+                    System.out.println("j: "+ j);
+
+            endPointer = (int) Math.pow(2, i);
+            endPointer += startPointer;
+
+            i++;
+        }
     }
 
     static class xyz {
