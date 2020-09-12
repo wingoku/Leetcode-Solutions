@@ -1,8 +1,11 @@
 package com.company;
 
 import com.company.competitiveProgramming.*;
+import com.company.competitiveProgramming.incomplete.FrogJump;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Main {
     public static void main(String args[]) {
@@ -18,14 +21,14 @@ public class Main {
             ]
          */
 
-        int[] s = null;
-        int[] x = {2, 7, 11, 15};
-        int[] x1 = {3, 2, 4};
-        int[] x2 = {0, 1, 2, 4, 7, 8, 9, 10, 11, 12};
-        int[] x3 = {10, 7, 8, 9, 1, 5};
-        int[] x4 = {6, 2, -1, 5, 3, 1, 4, 10}; // solution = 0
-        int[] x5 = {-1, 0, 1, 2, -3, -4}; // solution = 0 {-4, -3, -1, 0, 1, 2} -> {-4, -3, -1} {0} {1, 2}
-        int[] x6 = {-1, 0, 3, 2, -1, -4}; // solution = 0
+//        int[] s = null;
+//        int[] x = {2, 7, 11, 15};
+//        int[] x1 = {3, 2, 4};
+//        int[] x2 = {0, 1, 2, 4, 7, 8, 9, 10, 11, 12};
+//        int[] x3 = {10, 7, 8, 9, 1, 5};
+//        int[] x4 = {6, 2, -1, 5, 3, 1, 4, 10}; // solution = 0
+//        int[] x5 = {-1, 0, 1, 2, -3, -4}; // solution = 0 {-4, -3, -1, 0, 1, 2} -> {-4, -3, -1} {0} {1, 2}
+//        int[] x6 = {-1, 0, 3, 2, -1, -4}; // solution = 0
         //       0  1  2  3  4  5  6  7  8  9
 /*
         int[] test = x5;
@@ -64,8 +67,9 @@ public class Main {
 
         //"bdab"
         //"ab"
-        //input: "aa" : find: "aa" : Expected: "aa"
-//        String smallestSubstring = new MinimumWindowSubstring().findSmallestSubstring("aaaaaaaaaaaabbbbbcdd", "abcdd");
+        //input: "aa" : find: "aa" : Expected: "aa""ADOBECODEBANC"
+        //"ABC"
+//        String smallestSubstring = new MinimumWindowSubstring().findSmallestSubstring("acbbaca", "aba");
 //        System.out.println("smallestSubstring: "+ smallestSubstring);
 
 //        new ArrayQuadruplet().findArrayQuadruplets(new int[] {2, 7, 4, 0, 9, 5, 1, 3}, 20);
@@ -97,8 +101,90 @@ public class Main {
 //        new MoveZerosToEndOfArray().moveZeroes(new int[] {1,0,1});
 //        new SymmetricTree().isSymmetric(null);
 
-        new BinaryTreeLevelOrderTraversal().levelOrder(null);
+//        new BinaryTreeLevelOrderTraversal().levelOrder(null);
+//        new MatrixChainMultiplicationProblem().maxCoins(new int[]{9,76,64,21});
 //        new Main().iterateWith2Power();
+//        new CountingBits().countBits(4);
+//        new NumberOfSubsequences().countSubsequences("abbbc");
+//        new CountInversions_OR_Swaps().countInversions(new int[] {7, -90, 100, 1});
+
+//        new ReplaceGreatestElementsOnRight().replace(new int[] {16, 17, 4, 3, 5, 2});
+
+//        new HighestPowerOf2().findHighestPowerOf2LessThanOrEqualToGiveNumber(10);
+//        new ArrayQuadruplet().findArrayQuadruplets(new int[] {4,4,4,4}, 16);
+//        new KMessedArraySort().sortKMessedArray(new int[] {1, 4, 5, 2, 3, 7, 8, 6, 10, 9}, 2);
+
+//       MergeKSortedLists merge = new MergeKSortedLists();
+//       merge.mergeKLists(merge.createDataSet(new int[][] {{1,4,5},{1,3,4},{2,6}}));
+
+//        new KLargestElementInArray().findKthLargest(new int[] {3,2,1,5,6,4}, 5);
+
+//        boolean result = new isSubsequence().isSubsequence("aaaaaa", "bbaaaaaa");
+//        System.out.println("isSubsequence: "+ result);
+
+//        new RepeatedDNASequences().findRepeatedDnaSequences("AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT");
+
+//        new PancakeSort().pancakeSort(new int[]{2,3,4,5,6,1});
+//        new NumberOfMatchingSubsequeneces().numMatchingSubseq("qlhxagxdqh", new String[] {"qlhxagxdq","qlhxagxdq","lhyiftwtut","yfzwraahab"});
+//        new WordSearch().exist(new char[][] {{'C','A','A'},{'A','A','A'},{'B','C','D'}}, "AAB");
+
+//        new WordLadder().ladderLength("hit","cog", Arrays.asList("hot","dot","dog","lot","log","cog"));
+
+//        new RemoveElement().removeElement(new int[]{1}, 1);
+
+//        new GenerateParentheses().generateParenthesis(4);
+//        new LowestCommonAncestorOfBinaryTree().lowestCommonAncestor();
+/*
+        int[][] times = new int[][]{ {0,30},
+                {15, 20},
+                {5,10}};
+
+        Arrays.sort(times, (sT1, sT2) -> sT1[0]-sT2[0]);
+
+        System.out.println("s");*/
+
+//        new MeetingRooms2().createDataSet();
+
+//        new KClosestPointToOrigin().kClosest(new int[][]{{1,3},{-2,2},{2,-2}}, 2);
+//        new FrogJump().canCross(new int[]{0,1,3,5,6,8,12,17});
+//        new JumpGame().canJump(new int[] {2,5,0,0});
+
+//        new SwapLinkedNodesInPairs().swapPairs(null);
+
+//        new PascalTriangle2().getRow(25);
+//        new UnqiuePath().uniquePaths(4,4);
+//        new HouseRobber2().rob(new int[] {1,3,1,3,100});
+//        new PowerCalculator().myPow(2.0, -2147483648);
+
+//        RabbitMQ r = new RabbitMQ();
+////        MdmService s = new MdmService();
+//        r.connect();
+
+//        new CombinationSum().combinationSum(new int[]{2,3,5}, 8);
+
+//        new BinaryTreePaths().createDataSet(null);
+
+        new ReorganizeString().reorganizeString("aab");
+    }
+
+    private void minHeapPractice() {
+        MinHeap minHeap = new MinHeap(7);
+        minHeap.add(10);
+        minHeap.add(4);
+        minHeap.add(15);
+        System.out.println("removed (4): "+ minHeap.poll());
+        minHeap.add(20);
+        minHeap.add(0);
+        minHeap.add(30);
+        System.out.println("removed (0): "+ minHeap.poll());
+        System.out.println("removed (10): "+ minHeap.poll());
+
+        minHeap.add(2);
+        minHeap.add(4);
+        minHeap.add(-1);
+        minHeap.add(-3);
+
+        System.out.println("removed (-3): "+ minHeap.poll());
     }
 
     private void iterateWith2Power() {

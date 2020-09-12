@@ -1,4 +1,4 @@
-package com.company.competitiveProgramming;
+package com.company.competitiveProgramming.incomplete;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -7,6 +7,149 @@ public class MinimumWindowSubstring {
     //INPUT --> ADOBECODEBANC | FIND: ABC :: RESULT -> BANC
 
     public String findSmallestSubstring(String input, String toBeFound) {
+        String smallestSubstring = "";
+
+        //two pointers
+        //startPointer, endPointer both start at 0
+        //we move right pointer until we've all the characters give in "toBeFound" variable between startPointer & endPointer
+        //store the string when the all characters are found
+        //if endPointer != lengthOfInput, move the right pointer
+        //than check if it's all the characters in the given toBeFound variable
+        //if yes, we check if it's smaller than the previously found string
+        //if yes, than we store it in smallestSubstring variable
+        //if not, we move startPointer forward/inward
+        //than we check again in the new windw
+        //we repeat the process until we reach the end of the string
+
+
+        if(input == null || input.length() < 1 || toBeFound == null || toBeFound.isEmpty() || input.length() < toBeFound.length())
+            return "";
+
+        if(input.length() == toBeFound.length() && input.equals(toBeFound))
+            return input;
+
+        int startPointer = 0;
+        int endPointer = 0;
+        int foundCountSoFar = 0;
+        char currentChar = ' ';
+        int prevStartPointer = 0;
+        int iterationsCount = 0;
+        HashMap<Character, Integer> toBeFoundCountMap = new HashMap<>();
+        HashMap<Character, Integer> countInCurrentWindowMap = new HashMap<>();
+
+        for(int i=0; i<toBeFound.length(); i++) {
+            int count = toBeFoundCountMap.getOrDefault(toBeFound.charAt(i), 0);
+            toBeFoundCountMap.put(toBeFound.charAt(i), count+1);
+        }
+
+        //increment right index until we find a matching sub window
+        //than increment left to shrink the window as long as we still have matching sub window else: increment right index
+        while(startPointer < input.length()) {
+            currentChar = input.charAt(endPointer);
+
+            if(foundCountSoFar < toBeFoundCountMap.size() && toBeFoundCountMap.containsKey(currentChar)) {
+                int count = countInCurrentWindowMap.getOrDefault(currentChar, 0);
+                count++;
+                countInCurrentWindowMap.put(currentChar, count);
+
+                if(count == toBeFoundCountMap.get(currentChar))
+                    foundCountSoFar++;
+            }
+
+            if(foundCountSoFar == toBeFoundCountMap.size()) {
+
+                while(startPointer <= endPointer && foundCountSoFar == toBeFoundCountMap.size()) {
+                    currentChar = input.charAt(startPointer);
+
+                    if(checkIfMapsMatch(countInCurrentWindowMap, toBeFoundCountMap)) {
+                        if ((smallestSubstring.isEmpty() || endPointer - startPointer + 1 < smallestSubstring.length())) {
+                            smallestSubstring = input.substring(startPointer, endPointer + 1); //+1 to include the last character
+                        }
+                    }
+                    else {
+                        startPointer++;
+                        prevStartPointer = startPointer;
+                        break;
+                    }
+
+                    if(toBeFoundCountMap.containsKey(currentChar)) {
+                        int count = countInCurrentWindowMap.getOrDefault(currentChar, 0);
+                        countInCurrentWindowMap.put(currentChar, count-1);
+
+                        if(count-1 <= 0) {
+                            foundCountSoFar--;
+                            startPointer++;
+                            prevStartPointer = startPointer;
+                            break;
+                        }
+                    }
+                    startPointer++;
+                    prevStartPointer = startPointer;
+                }
+            }
+
+            if(endPointer < input.length()-1)
+                endPointer++;
+            else
+                if(prevStartPointer == startPointer) {
+                    if(iterationsCount > 2)
+                        break;
+                    iterationsCount++;
+                }
+
+        }
+
+        System.out.println("smallestSubstring: "+ smallestSubstring);
+
+        return smallestSubstring;
+    }
+
+    private boolean checkIfMapsMatch(HashMap<Character, Integer> currentWindowMap, HashMap<Character, Integer> toBeFoundMap) {
+        if(currentWindowMap.size() < toBeFoundMap.size())
+            return false;
+
+        for(Character c : toBeFoundMap.keySet()) {
+            if((currentWindowMap.containsKey(c) && currentWindowMap.getOrDefault(c, 0) < toBeFoundMap.get(c)))
+                return false;
+        }
+
+        return true;
+    }
+
+    private boolean checkIfToBeFoundLiesInThisWindow(int startPointer, int endPointer, int toBeFoundStringLength, String input, HashMap<Character, Integer> toBeFoundCountMap) {
+//        if(endPointer - startPointer < toBeFoundStringLength)
+//            return false;
+
+        //input = aaat
+        //toBeFound = t
+        //substring based on startPoitner & endPointer == aa
+        //loop over the input string from startPointer & endPointer and check if the character lies in the toBeFoundMap, if yes, we add the character count in a new map. At the end, we check if counts in new map == counts in toBeFoundCount map
+        //if yes, we return true otherwise false;
+
+        int foundCharsCount = 0;
+        HashMap<Character, Integer> countMapForCurrentWindow = new HashMap<>();
+        for(int i=startPointer; i<=endPointer; i++) {
+            if(toBeFoundCountMap.containsKey(input.charAt(i)))
+                countMapForCurrentWindow.put(input.charAt(i), countMapForCurrentWindow.getOrDefault(input.charAt(i), 0)+1);
+
+            if(countMapForCurrentWindow.getOrDefault(input.charAt(i), 0).intValue() == toBeFoundCountMap.getOrDefault(input.charAt(i), -1).intValue())
+                foundCharsCount++;
+        }
+
+        return foundCharsCount == toBeFoundCountMap.size();
+
+      /*  if(countMapForCurrentWindow.size() == toBeFoundCountMap.size()) {
+            for(Character c : toBeFoundCountMap.keySet()) {
+                if(countMapForCurrentWindow.get(c) < toBeFoundCountMap.get(c))
+                    return false;
+            }
+        }
+        else return false;
+
+        return true;*/
+    }
+
+    /* public String findSmallestSubstring(String input, String toBeFound) {
         String smallestSubstring = "";
         int startPointer = -1;
         int endPointer = 0;
@@ -36,7 +179,7 @@ public class MinimumWindowSubstring {
                 }
 
                 if(foundCharactersMap.get(currentCharacter) != null && foundCharactersMap.get(currentCharacter)+1 > toBeFoundMap.get(currentCharacter)
-                        /*|| (lastCharacter == currentCharacter && foundCharacters == 1)*/) {
+                        *//*|| (lastCharacter == currentCharacter && foundCharacters == 1)*//*) {
                     startPointer = endPointer;
                     foundCharactersMap.clear();
                     secondVariablePosition = 0;
@@ -50,8 +193,8 @@ public class MinimumWindowSubstring {
                     else
                         foundCharactersMap.put(currentCharacter, 1);
 
-                    /*if(currentCharacter != lastCharacter)
-                        foundCharacters++;*/
+                    *//*if(currentCharacter != lastCharacter)
+                        foundCharacters++;*//*
 
                     if (foundCharactersMap.size() == 2)
                         secondVariablePosition = endPointer;
@@ -79,7 +222,7 @@ public class MinimumWindowSubstring {
         }
 
         return smallestSubstring;
-    }
+    }*/
 
     //ADOBEAOCEBANC
         // --> possible substrings:

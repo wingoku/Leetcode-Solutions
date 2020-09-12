@@ -1,4 +1,4 @@
-package com.company.competitiveProgramming;
+package com.company.competitiveProgramming.incomplete;
 
 public class RotateImage {
     public void rotate(int[][] matrix) {
