@@ -9,25 +9,45 @@ public class FindPrimeNumbersUnderN {
     2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199,
      */
 
-
+    //https://www.youtube.com/watch?v=PypkiVlTRa4&feature=youtu.be
     //accepted solution based off of sieve of eratosthenes algo. Faster than 95 solutoins. Easier to understand.
-     public int findPrimeNumbers(int n) {
-         int primeCount = 0;
-         boolean[] tempBooleanArray = new boolean[n];
+    //TC: O(n log log n)
+    public int countPrimes(int n) {
 
-         //we're trying to get rid of the multiples of a number in variable 'i' inside inner loop j. The explanation is attached with pics in OneNote. READ sieve of eratosthenes algo online: https://www.youtube.com/watch?v=PypkiVlTRa4&feature=youtu.be
-         for(int i=2; i*i<n; i++) {
-             if(!tempBooleanArray[i])
-                 for(int j=i*i; j<n; j+=i) {
-                     tempBooleanArray[j] = true;
-                 }
-         }
+        if(n <= 2)
+            return 0;
 
-         for(int i=2; i<n; i++)
-             if(!tempBooleanArray[i])
-                 primeCount++;
+        if(n == 3)
+            return 1;
 
-         return primeCount;
+        boolean[] multiples = new boolean[n];
+        multiples[0] = true;
+        multiples[1] = true;
+
+        //this loop will go over the numbers until n such that num*num < n
+        for(int i=2; i*i < n; i++) {
+
+            //if we've already calculated the multple of num i, no need to recalculate its multiples again
+            if(multiples[i] == true)
+                continue;
+
+            //the inner loop will calculate the multiples of current i
+            //lets say n = 10
+            //if i = 2,
+            //j = 4, since 4 < 10. we do j+i which is equal to 6. Since 6 < 10, we do j+i=6+2=8. Than since j+i=8+2=10 is not less than 10, we get out of this inner loop
+            for(int j=i*i; j<n; j+=i) {
+                multiples[j] = true;
+            }
+        }
+
+        int primes = 0;
+
+        for(boolean b : multiples) {
+            if(b == false)
+                primes++;
+        }
+
+        return primes;
     }
 
     //accepted solution based off of sieve of eratosthenes algo. Faster than 96.58 solutoins.

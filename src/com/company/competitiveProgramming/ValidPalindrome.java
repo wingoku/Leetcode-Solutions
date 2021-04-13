@@ -1,6 +1,49 @@
 package com.company.competitiveProgramming;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ValidPalindrome {
+
+    //TC: O(N)
+    //SC: O(N)
+    public boolean isPalindrome_EASIER(String s) {
+
+        if(s == null || s.length() == 1)
+            return true;
+
+        List<Character> list = new ArrayList<>();
+
+        //remove all the non alphanumric stuff out
+        //and put only alphanumeric characters in the list
+        for(int i=0; i<s.length(); i++) {
+            char c = Character.toLowerCase(s.charAt(i));
+
+            if(isAlphanumeric(c))
+                list.add(c);
+        }
+
+        int i = 0;
+        int j = list.size()-1;
+
+        while(i < j) {
+
+            char sC = list.get(i++);
+            char eC = list.get(j--);
+
+            if(sC != eC)
+                return false;
+        }
+
+        return true;
+    }
+
+    private boolean isAlphanumeric(char c) {
+        return c >= 'a' && c <= 'z' || c >= '0' && c <= '9';
+    }
+
+
+
 
     //accepted answer. Took 1ms in leetcode
     public boolean isValidPalindrome(String s) {

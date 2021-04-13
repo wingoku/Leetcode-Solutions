@@ -2,19 +2,37 @@ package com.company.competitiveProgramming;
 
 import java.util.HashMap;
 
-public class FirstNonRepeatingCharacter {
+public class FirstNonRepeatingCharacterORFirstUniqueCharacterInString {
 
     //aabbcdceff
     //AMAZON CODING INTERVIEW
     //working according to leetcode
-    public int firstUniqueCharacter(String input) {
-        int position = -1;
-        int startPointer = 0;
-        int endPointer = 0;
-        char lastChar = 0;
 
-        int sum = 0;
-        char firstUniqueChar = 0;
+    public int firstUniqChar(String input) {
+        if(input == null || input.isEmpty())
+            return -1;
+
+        if(input.length() == 1)
+            return 0;
+
+        int index = -1;
+        HashMap<Character, Integer> countMap = new HashMap<>();
+
+        for(int i=0; i<input.length(); i++) {
+            char c = input.charAt(i);
+            countMap.put(c, countMap.getOrDefault(c, 0)+1);
+        }
+
+        for(int i=0; i<input.length(); i++) {
+            if(countMap.get(input.charAt(i)) == 1){
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+
+    public int firstUniqueCharacter(String input) {
         int hashPattern[] = new int[256];
 
         for(int i=0; i<input.length(); i++) {
@@ -28,25 +46,6 @@ public class FirstNonRepeatingCharacter {
             }
         }
         return -1;
-        //loveleetcode
-        //if sum ^ = currentChar === currentChar, currentChar = unique
-        /*for(int i=0; i<input.length(); i++) {
-            sum ^= (int)input.charAt(i);
-            System.out.println("sumChar: "+ ((char)sum));
-            if(input.indexOf(sum) != -1)
-                firstUniqueChar = (char) sum;
-        }*/
-
-//        System.out.println("firstUniqueCharacter: "+ firstUniqueChar);
-        /*while(endPointer < input.length()) {
-            if(lastChar != input.charAt(endPointer)) {
-                startPointer = position =  endPointer;
-            }
-
-            lastChar = input.charAt(endPointer);
-            endPointer++;
-        }*/
-//        return position;
     }
 
     //accepted but slower solution

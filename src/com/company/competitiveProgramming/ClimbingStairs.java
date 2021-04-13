@@ -18,26 +18,25 @@ public class ClimbingStairs {
         return dp[n];
     }
 
-    //using backtracking & dynammic programming
-    private int backtrack(int dp[], int n) {
-        //if n <0 that means we had already reached the top & we can't take any further steps
-        if(n < 0) {
+
+    //using recursion
+    private int countPaths(int steps, int[] dp) {
+        if(steps < 0)
             return 0;
-        }
 
-        //number of ways we can climb zero stairs is 1 that's we can't climb 0 stairs & that's the only way i-e; we can't climb zero stairs
-        if(n == 0) {
+        //because we can only reach the top of the stair case ONCE
+        if(steps == 0)
             return 1;
-        }
 
-        //if dp[n] meaning we've already calculate the number of steps taken for Nth step, we just return the value
-        if(dp[n] != 0) {
-            return dp[n];
-        }
+        //if we've already calcualted how many ways we can take STEPS steps, we just return the result instead of recalculating
+        if(dp[steps] != 0)
+            return dp[steps];
 
-        int result = backtrack(dp, n-1) + backtrack(dp, n-2);
-        dp[n] = result;
+        //from every stair, we've two ways to climb to the next stair, either we take 1 step or we take 2 steps
+        //if we take 1 step, it means we can reduce 1 from the current steps eg. we've 3 steps given, if we take 1 step out of 3, we're left with 2 steps
+        //similarly if we take 2 steps, we do steps - 2 i-e; if we've 3 steps given and if we take 2 steps, we're left with 3-2 steps that we can take further
+        dp[steps] = countPaths(steps-1, dp) + countPaths(steps-2, dp);
 
-        return result;
+        return dp[steps];
     }
 }

@@ -1,6 +1,19 @@
 package com.company.competitiveProgramming;
 
 public class LongestCommonPrefix {
+    /**
+     The idea is to compare 2 strings at a time
+     We compare string i with i-1 by iterating over both strings
+     if characters in each string at index j are same we increment a count
+     if they're not the same, we get out of the j loop and find the min matching characters
+     we've had so far. We we do min cuz the smallest amount of matching charcters among string is the common prefix
+
+
+     */
+    //TC: O(2n * m) where N is the number of words and we've 2n cuz we're touching each string twice except for the very first string
+    //the given array and very last string in the given array
+    //and m is the number of similar characters among 2 strings. In worst case, all the characters between 2 strings match so time complexity
+    //would be a total of m for each string where m is the number of characters in each string
     //amazon coding interview
     //leetcode 1ms
     public String longestCommonPrefix(String[] strs) {
@@ -34,4 +47,5 @@ public class LongestCommonPrefix {
 
         return strs[0].substring(0, minCount);
     }
+
 }

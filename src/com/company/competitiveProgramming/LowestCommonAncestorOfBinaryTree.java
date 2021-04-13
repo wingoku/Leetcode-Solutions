@@ -40,36 +40,32 @@ public class LowestCommonAncestorOfBinaryTree {
 
     public TreeNode lowestCommonAncestor() {
         TreeNode root = createDataSet();
-        dfs(root, p, q, new int[]{0});
+        dfs(root, p, q);
         return lca;
     }
 
     //accepted by leetcode
     //amazon coding interview
     //will traverse all the nodes even when the nodes are found early in the tree
-    private boolean dfs(TreeNode root, TreeNode p, TreeNode q, int[] foundNodesCount) {
-        //added check for foundNodesCount >= 2 to prevent further traversal down the tree
-        //when both nodes are found.
-        //see example 1, when we've found node with value 1, at that stage foundNodesCount would be == 2,
-        //now we don;t really need to traverse left & right subtrees of node with value 1 cuz we're not going to find another node in
-        //the subtrees of node 1
-        //therefore we add this condition to immediately return false
-        if(root == null || foundNodesCount[0] >= 2) {
+    private boolean dfs(TreeNode root, TreeNode p, TreeNode q) {
+        if(root == null) {
             return false;
         }
 
         //if p or q matches with the currentNode than we found one of the nodes
         boolean matchesWithCurrentNode = (root == p || root == q);
 
-        //when we come at the node that matches either p or q, update the foundNodesCount
-        if(matchesWithCurrentNode)
-            foundNodesCount[0]++;
+        //when we come at the node that matches either p and q, we've found the lca
+        if(root == p && root == q) {
+            lca = root;
+            return true;
+        }
 
         //if p or q is found in left subtree of current node, it'll return true
-        boolean foundInLeftSubtree = dfs(root.left, p, q, foundNodesCount);
+        boolean foundInLeftSubtree = dfs(root.left, p, q);
 
         //if p or q is found in right subtree of current node, it'll return true
-        boolean foundInRightSubtree = dfs(root.right, p, q, foundNodesCount);
+        boolean foundInRightSubtree = dfs(root.right, p, q);
 
         int mid = matchesWithCurrentNode ? 1 : 0;
         int left = foundInLeftSubtree ? 1 : 0;
@@ -85,7 +81,7 @@ public class LowestCommonAncestorOfBinaryTree {
         //we're checking if sum of mid, left, right > 0 cuz if we're somewhere deep in left or right subtree
         //& we only found 1 of the nodes from p & q, than we need to return true
         //if we don't find any node that matches p or q, we'll return false since mid+left+right will be = 0
-        return mid + left + right > 0;
+        return matchesWithCurrentNode || foundInLeftSubtree || foundInRightSubtree;
     }
 
     //accepted working solution

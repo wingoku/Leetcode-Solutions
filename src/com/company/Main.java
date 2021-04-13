@@ -3,9 +3,7 @@ package com.company;
 import com.company.competitiveProgramming.*;
 import com.company.competitiveProgramming.incomplete.FrogJump;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class Main {
     public static void main(String args[]) {
@@ -164,7 +162,57 @@ public class Main {
 
 //        new BinaryTreePaths().createDataSet(null);
 
-        new ReorganizeString().reorganizeString("aab");
+//        new ReorganizeString().reorganizeString("aab");
+//        new MakingLargeIsland().largestIsland(new int[][] {{1,1,1,1,0,0},
+//                {0,0,1,0,0,1},
+//                {0,1,1,0,0,1},
+//                {0,0,1,1,0,1},
+//                {0,0,0,1,0,1},
+//                {1,1,0,0,0,1}});
+
+//        new MaxWidthOfBinaryTree().widthOfBinaryTree(null);
+//        new SpiralMatrix().spiralCopy(new int[][] { {1,    2,   3,  4,    5},
+//                {6,    7,   8,  9,   10},
+//                {11,  12,  13,  14,  15},
+//                {16,  17,  18,  19,  20} });
+
+//        new SubarraySumEqualK().subarraySum(new int[]{0,0,0,0,0,0,0,0,0,0}, 0);
+
+//        List<List<Integer>> connections = new ArrayList<>();
+//        connections.add(Arrays.asList(0,1));
+//        connections.add(Arrays.asList(1,2));
+//        connections.add(Arrays.asList(2,0));
+//        connections.add(Arrays.asList(1,3));
+//        new CriticalConnectionsInNetwork_TarjanAlgo().criticalConnections(4, connections);
+
+//        LRUCache cache = new LRUCache(3);
+////        cache.put(1,1);
+////        cache.put(2,2);
+////        cache.put(3,3);
+////        cache.put(4,4);
+////        cache.get(4);
+////        cache.get(3);
+////        cache.get(2);
+////        cache.get(1);
+////        cache.put(5,5);
+////        cache.get(1);
+////        cache.get(2);
+////        cache.get(3);
+////        cache.get(4);
+////        cache.get(5);
+
+//        new AmazonQuestion_K_minus_1_DistinctCharacters().kDistinctCharacters();
+//        new DivideTwoIntegers().divide(10, -3);
+
+//        new ExpressionAddOperator().addOperators("100015", 15);
+
+//        String word1 = "abc";
+//        String word2 = "abc";
+//
+//        System.out.println(word1.startsWith(word2));
+//        System.out.println(word1.equals(word2));
+        new WordBreak().wordBreak("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab",
+                Arrays.asList("a","aa","aaa","aaaa","aaaaa","aaaaaa","aaaaaaa","aaaaaaaa","aaaaaaaaa","aaaaaaaaaa"));
     }
 
     private void minHeapPractice() {

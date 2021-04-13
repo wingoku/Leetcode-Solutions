@@ -18,6 +18,7 @@ public class MeetingRooms2 {
     /***
      * LOOK AT THE FOLLOWING EXAMPLE TAKEN FROM GEEKS FOR GEEKS. SAME PRINCIPLE APPLIES TO MEETINGS PROBLEM: https://www.geeksforgeeks.org/minimum-number-platforms-required-railwaybus-station/
      * VIDEO EXAMPLE: https://www.youtube.com/watch?v=118Ie3nPCdc
+     * BETTER EXPLANATION: https://www.youtube.com/watch?v=KIKjKlbJUwU
      *
      * arr[]  = {9:00,  9:40, 9:50,  11:00, 15:00, 18:00}
      * dep[]  = {9:10, 12:00, 11:20, 11:30, 19:00, 20:00}

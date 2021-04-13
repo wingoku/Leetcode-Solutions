@@ -82,6 +82,7 @@ public class GenerateParentheses {
     //backtracking
     //based on nick white video: https://www.youtube.com/watch?v=qBbZ3tS0McI
     //amazon coding interview
+    List<String> result = new ArrayList<>();
     public List<String> generateParenthesis(int n) {
         /*
             This is a backtracking problem
@@ -89,27 +90,20 @@ public class GenerateParentheses {
             and we don't know how many combinations are satisfying the given contraints - the given constraint in this case is BALANCED PARENTHESES
         */
 
-        List<String> result = new ArrayList<>();
-        backtrack(result, "", 0, 0, n);
-
+        backtrack(0,0, n, "");
         return result;
     }
 
-    private void backtrack(List<String> result, String currentString, int leftCount, int rightCount, int maxParentheses) {
-        if(currentString.length() == maxParentheses * 2) { //maxParentheses * 2 cuz maxParentheses contains only the count for pairs NOT the count of individual parenthesis
-
-            System.out.println("-------------->"+currentString);
-            result.add(currentString);
+    private void backtrack(int left, int right, int n, String parentheses) {
+        if(left+right >= n*2) {
+            result.add(parentheses);
             return;
         }
 
-        System.out.println(currentString);
+        if(left < n)
+            backtrack(left+1, right, n, parentheses+"(");
 
-        if(leftCount < maxParentheses)
-            backtrack(result, currentString+"(", leftCount+1, rightCount, maxParentheses);
-
-        if(rightCount < leftCount) //cuz number of right parentheses MUST match the count of left parentheses
-            backtrack(result, currentString+")", leftCount, rightCount+1, maxParentheses);
+        if(right < left)
+            backtrack(left, right+1, n, parentheses+")");
     }
-
 }

@@ -8,24 +8,34 @@ public class JumpGame {
     //leetcode accepted
     //amazon coding
     //based on https://www.youtube.com/watch?v=Zb4eRjuPHbM
-    public boolean canJump(int[] nums) {
+    /**
+     .The idea is to go from right to left
+     The reason is, to solve this problem at a step that doesn't allow us to jump forward, we need to know
+     if there were previous steps with higher jump values that we can use to jump over the step next to the current step
+     Therefore it's a DP problem.
 
-        if(nums.length <= 1)
-            return true;
+     In DP solution we'd have maintain states based on the steps we take.
 
-        int lastReachedIndex = nums.length - 1;
-        for(int i=nums.length-1; i>=0; i--) {
+     The solution below is greedy & the way we solve this problem is by going from right to left
 
-            //if we can jump from currentPosition + jump value & reach the lastReachedIndex
-            //than we set lastReachedIndex == currentIndex
-            //this way we loop till the end of the array in backwards fashion & when we get out of the loop
-            //and the lastReachedIndex != 0 that means we can't reach rightMost/nums.length-1 from the start of the array
-            if(i + nums[i] >= lastReachedIndex) {
-                lastReachedIndex = i;
-            }
+     We take the last index of the array and say it's our lastGoodIndex cuz if you've jumped on this index, you're already good
+
+     Than we iterate from right to left & check if value at current index i i-e; nums[i] when summed with index of the array i
+     is bigger than or to the last good index.
+     If yes, we make the current index i as our last good index
+     and keep doing this step until the loop ends
+
+     if by the end of the loop, our lastGoodIndex != 0 that means we can't reach the end by jumping
+
+     */public boolean canJump(int[] nums) {
+        int lastGoodIndex = nums.length-1;
+
+        for(int i = nums.length-2; i>=0; i--) {
+            if(nums[i] + i >= lastGoodIndex)
+                lastGoodIndex = i;
         }
 
-        return lastReachedIndex == 0;
+        return lastGoodIndex == 0;
     }
 
     public boolean canJumpBackTracking(int[] nums) {

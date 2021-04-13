@@ -6,43 +6,74 @@ public class UnqiuePath {
     //linear looping way works
     //amazon coding interview
     public int uniquePaths(int m, int n) {
+
         int[][] dp = new int[m][n];
+        for(int i=0; i<m; i++) {
+            for(int j=0; j<n; j++) {
+                //if we're on row 0, there's only 1 way to reach any cell in row 0 cuz we can only move right or down (not up or left), therefore each cell in row 0 has only 1 way to reach any cell in row 0
+                if(i == 0)
+                    dp[i][j] = 1;
+                else
+                    //if we're on column 0, there's only 1 way to reach any cell in column 0 cuz we can only move down & right (not up or left)
+                    //therefore each cell in column 0 has only 1 way to reach any cell in column 0
+                    if(j==0)
+                        dp[i][j] = 1;
+                    else
+                    //to reach a cell that's not in the first row or first column (row = 0, column = 0), there can be dp[i-1][j] + dp[i][j-1]
+                    //cuz we can reach that cell either when we come to it from the top cell or left cell
+                    //For Example
+                    /**
+                     0   1  2
+                     +--+--+--+
+                     0 |  |  |  |
+                     +--+--+--+
+                     1 |  |  |  |
+                     +--+--+--+
+                     2 |  |  |  |
+                     +--+--+--+
 
-        //fill the first row with 1 cuz there's only one way to reach any cell in the first row from any other elements of the first row without going into other rows
-        for(int i=0; i<n; i++)
-            dp[0][i] = 1;
+                     if we want to reach cell 1,1
+                     one way to reach it is by following the path 0,0 -> 0,1 -> 1,1
+                     another way to reach it is by following the path 0,0 -> 1,0 -> 1,1
 
+                     so the total number of ways to reach cell 1,1 is the sum of the number of ways
+                     cell 0,1 & cell 1,0 can be reached.
 
-        //fill the first column with 1 cuz there's only one way to reach any cell in the first column from any other elements of the first column without going into other column
-        for(int i=0; i<m; i++)
-            dp[i][0] = 1;
+                     same holdes for any other cell in the grid except for row 0 & column 0 cuz we can only move down or right
 
-        backtrack(dp, 1, 1);
-        System.out.println("count: "+count);
+                     therefore the formula for calculating the ways to reach a cell when i>0 & j > 0 is:
+                     //top row cell        //neighboring left cell
+                     dp[i][j] = dp[i-1][j]        +    dp[i][j-1]
 
-        count = 0;
-        //this way is faster than recursion
-         for(int i=1; i<m; i++)
-             for(int j=1; j<n; j++) {
-                 count++;
-                 //ways to reach cell i,j is the sum of ways to reach the cell at (i-1, j)-> top & (i, j-1)->same row left column
-                 dp[i][j] = dp[i-1][j] + dp[i][j-1];
-             }
+                     */
+                        dp[i][j] = dp[i-1][j] + dp[i][j-1];
+            }
+        }
 
-        System.out.println("count: "+count);
         return dp[m-1][n-1];
+
+        /**
+         * Following code executes backtracking method for counting paths that lead to the destination
+         */
+        // int[] dp2 = new int[1];
+        // backtrack(m, n, 0, 0, dp2);
+        // return dp[0];
     }
 
-    int count = 0;
-    private void backtrack(int[][] dp, int i, int j) {
-        if(i>=dp.length || j>= dp[i].length)
+
+    //the idea behind finding the number of ways to reach the destination using backtracking is
+    //we recursively call backtracking for moving DOWN & RIGHT
+    //eventually each recursive call will reach the destination,
+    //when it reaches, we just increment the counter. This counter tells us how many times destination cell was reached.
+    //this solution is slow cuz of recursion but it works
+    private void backtrack(int m, int n, int i, int j, int[] dp) {
+        if(i >= m || j >= n)
             return;
 
-        System.out.println("i: "+ i + " j: "+ j + " dp[i][j]: "+dp[i][j]);
-        count++;
-        dp[i][j] = dp[i-1][j] + dp[i][j-1];
+        if(i == m-1 && j == n-1)
+            dp[0]++;
 
-        backtrack(dp, i+1, j);
-        backtrack(dp, i, j+1);
+        backtrack(m, n, i+1, j, dp);
+        backtrack(m, n, i, j+1, dp);
     }
 }

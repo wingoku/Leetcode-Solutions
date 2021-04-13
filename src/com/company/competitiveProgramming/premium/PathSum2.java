@@ -1,4 +1,4 @@
-package com.company.competitiveProgramming;
+package com.company.competitiveProgramming.premium;
 
 
 import java.util.ArrayList;
@@ -43,37 +43,33 @@ public class PathSum2 {
     public List<List<Integer>> pathSum(TreeNode root, int sum) {
         root = createDataSet(null);
         totalList = new ArrayList<>();
-        preOrderTraversal(root, sum, 0, new ArrayList<>());
+        dfs(root, sum, 0, new ArrayList<>());
         return totalList;
     }
 
-    private void preOrderTraversal(TreeNode root, int givenSum, int currentSum, List<Integer> currentList) {
-        if(root == null)
+    //preorder traversal cuz we're adding the currentNode value into the sum before making dfs calls or checking the sum + node.val == givenSum
+    private void dfs(TreeNode node, int givenSum, int currentSum, List<Integer> currentList) {
+        if(node == null)
             return;
 
         //adding current node's value to the list
-        currentList.add(root.val);
+        currentList.add(node.val);
 
         //checking if node is leaf cuz the requirement is that when the givenSum == calculatedSum, the node should be leaf node
-        boolean isLeafNode = root.left == null && root.right == null;
-        if(isLeafNode) {
-            if(currentSum + root.val == givenSum) {
-                //adding the current path that gives us giveSum == calculatedSum to the big list
-                totalList.add(new ArrayList<>(currentList));
-
-                //removing the current node from list cuz we're going back up from this node & we don't want this node in our path anymore for finding new path which results into givenSum == calculated sum
-                currentList.remove(currentList.size()-1);
-                return;
-            }
+        if(isleafNode(node) && currentSum+node.val == givenSum) {
+            //adding the current path that gives us giveSum == calculatedSum to the big list
+            totalList.add(new ArrayList<>(currentList));
         }
-
-        //standard way of doing DFS using preorder traversal
-        preOrderTraversal(root.left, givenSum, currentSum + root.val, currentList);
-        preOrderTraversal(root.right, givenSum, currentSum + root.val, currentList);
+        else {
+            dfs(node.left, givenSum, currentSum + node.val, currentList);
+            dfs(node.right, givenSum, currentSum + node.val, currentList);
+        }
 
         //removing the current node from list cuz we're going back up from this node & we don't want this node in our path anymore for finding new path which results into givenSum == calculated sum
         currentList.remove(currentList.size()-1);
+    }
 
-        return;
+    private boolean isleafNode(TreeNode node) {
+        return node.left == null && node.right == null;
     }
 }
